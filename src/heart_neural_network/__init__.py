@@ -25,7 +25,7 @@ class extraction_process_by_CS:
     def data_extract(self):
         try:
             self.data = pd.read_csv(self.address)
-            self.X = self.data["age","sex","cp","trestbps","chol","fbs","restecg","thalach","exang","oldpeak","slope","ca","thal"].to_numpy()
+            self.x = self.data[["age","sex","cp","trestbps","chol","fbs","restecg","thalach","exang","oldpeak","slope","ca","thal"]].to_numpy()
             self.y = self.data["target"].to_numpy()
             
         except FileNotFoundError as err:
@@ -36,8 +36,8 @@ class extraction_process_by_CS:
 
     def spiliting_data_sets(self):
         try:
-            x_train ,x_temp,y_train,y_temp = train_test_split(self.X,self.y,test_size=.30,shuffle=True,random_state=46)
-            x_test,x_valid,y_test,y_valid = train_test_split(x_temp,y_temp,test_size=.50,shuffle=True,random_state=46)
+            x_train ,x_temp,y_train,y_temp = train_test_split(self.x,self.y,test_size=.30,random_state=42,shuffle=True)
+            x_test,x_valid,y_test,y_valid = train_test_split(x_temp,y_temp,test_size=.50,random_state=42,shuffle=True)
             return x_train , y_train,x_test,y_test 
         except ValueError as err:
             print("Failed extraction and data ",err)
@@ -46,6 +46,7 @@ class Neural_activation_process(extraction_process_by_CS):
     
     def __init__(self):
         super().__init__()
+        self.data_extract()
         x_train ,x_valid,y_train,y_temp = self.spiliting_data_sets()
 
         print(x_train.shape)
