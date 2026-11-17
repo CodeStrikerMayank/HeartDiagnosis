@@ -43,14 +43,22 @@ class extraction_process_by_CS:
             print("Failed extraction and data ",err)
             sys.exit()
 class Neural_activation_process(extraction_process_by_CS):
+
+    def sigmoid(z):
+        return 1/(1+(np.exp(-np.clip(z,-500,500))))
+
+    def relu(z):return np.maximum(z*0.01,z)
+
+    def relu_der(z):return np.where(z>0,1.0,0.01)
     
     def __init__(self):
         super().__init__()
         self.data_extract()
         x_train ,x_valid,y_train,y_temp = self.spiliting_data_sets()
-
+        
         print(x_train.shape)
 t1 = Neural_activation_process()
+ 
 
         
 
