@@ -82,9 +82,11 @@ class Neural_activation_process(extraction_process_by_CS):
            batch = 10
            x_shuffle ,y_shuffle = x_train[indices],y_train[indices]
            for i in range(0,m,batch):
+            """Implementing the batch processing unit"""
             xb = x_shuffle[i:i+batch]
             yb = y_shuffle[i:i+btach]
-            mb = 
+            mb = len(xb)
+
 
 
 
