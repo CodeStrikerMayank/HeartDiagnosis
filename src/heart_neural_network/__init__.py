@@ -84,7 +84,7 @@ class Neural_activation_process(extraction_process_by_CS):
            for i in range(0,m,batch):
             """Implementing the batch processing unit"""
             xb = x_shuffle[i:i+batch]
-            yb = y_shuffle[i:i+btach]
+            yb = y_shuffle[i:i+batch]
             mb = len(xb)
 
             """ lets activate the Neuron 😎 """
@@ -99,7 +99,15 @@ class Neural_activation_process(extraction_process_by_CS):
             a3 = relu(z3)
 
             z4 = np.dot(a3,w4)+b4 
-            a4 = relu(z4)  
+            a4 = relu(z4)
+
+            z5 = np.dot(a4,w5)+b5
+            a5 = relu(z5)  
+
+            z6 = np.dot(a5,w6)+b6
+            a6 = self.sigmoid(z6)
+
+            
 
 
 t1 = Neural_activation_process()
