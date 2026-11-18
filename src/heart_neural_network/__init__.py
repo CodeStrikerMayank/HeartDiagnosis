@@ -87,7 +87,12 @@ class Neural_activation_process(extraction_process_by_CS):
             yb = y_shuffle[i:i+btach]
             mb = len(xb)
 
+            """ lets activate the Neuron 😎 """
 
+            z1 = np.dot(xb,w1)+b1 
+            a1 = relu(z1)
+
+            z2= 
 
 
 t1 = Neural_activation_process()
