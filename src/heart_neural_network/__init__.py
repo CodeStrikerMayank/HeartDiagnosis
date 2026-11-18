@@ -47,6 +47,7 @@ class Neural_activation_process(extraction_process_by_CS):
     def sigmoid(z):
         return 1/(1+(np.exp(-np.clip(z,-500,500))))
 
+    @staticmethod
     def relu(z):return np.maximum(z*0.01,z)
 
     def relu_der(z):return np.where(z>0,1.0,0.01)
@@ -90,24 +91,32 @@ class Neural_activation_process(extraction_process_by_CS):
             """ lets activate the Neuron 😎 """
 
             z1 = np.dot(xb,w1)+b1 
-            a1 = relu(z1)
+            a1 = self.relu(z1)
 
             z2 = np.dot(a1,w2)+b2 
-            a2 = relu(z2)
+            a2 = self.relu(z2)
 
             z3 = np.dot(a2,w3)+b3 
-            a3 = relu(z3)
+            a3 = self.relu(z3)
 
             z4 = np.dot(a3,w4)+b4 
-            a4 = relu(z4)
+            a4 = self.relu(z4)
 
             z5 = np.dot(a4,w5)+b5
-            a5 = relu(z5)  
+            a5 = self.relu(z5)  
 
             z6 = np.dot(a5,w6)+b6
-            a6 = self.sigmoid(z6)
+            a6 = self.sigmoid(z6) 
 
-            
+            """Backward propogation """   
+            dz6 = (yb-y_shuffle)
+            dw6 = (1/mb)*np.dot(a5.T,dz6)
+            db6 = (1/mb)*np.sum(dz6,axis=0,keepdims=True)
+
+            dz5 = np.dot(dz6,w6.T)*self.relu_der(z5)
+            dw5 = (1/mb)*np.dot(a4.T,dz5)
+            db5 = (1/mb)*np.dot(dz5,axis=0,keepdims=True)
+                     
 
 
 t1 = Neural_activation_process()
