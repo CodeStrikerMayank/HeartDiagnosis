@@ -50,12 +50,19 @@ class Neural_activation_process(extraction_process_by_CS):
     def relu(z):return np.maximum(z*0.01,z)
 
     def relu_der(z):return np.where(z>0,1.0,0.01)
+
+    def bce(pred, target):
+        """Binary cross entropy: -[y*log(p) + (1-y)*log(1-p)]"""
+        eps = 1e-15
+        p = np.clip(pred, eps, 1.0 - eps)   
+        loss = -(target * np.log(p) + (1.0 - target) * np.log(1.0 - p))
+        return np.mean(loss)
     
     def __init__(self):
         super().__init__()
         self.data_extract()
         x_train ,x_valid,y_train,y_temp = self.spiliting_data_sets() 
-        print(f"X shape :- {x_train.shape}")
+        
        
 t1 = Neural_activation_process()
      
