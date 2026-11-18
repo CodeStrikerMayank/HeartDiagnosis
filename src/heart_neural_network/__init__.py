@@ -92,7 +92,14 @@ class Neural_activation_process(extraction_process_by_CS):
             z1 = np.dot(xb,w1)+b1 
             a1 = relu(z1)
 
-            z2= 
+            z2 = np.dot(a1,w2)+b2 
+            a2 = relu(z2)
+
+            z3 = np.dot(a2,w3)+b3 
+            a3 = relu(z3)
+
+            z4 = np.dot(a3,w4)+b4 
+            a4 = relu(z4)  
 
 
 t1 = Neural_activation_process()
