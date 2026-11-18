@@ -54,12 +54,10 @@ class Neural_activation_process(extraction_process_by_CS):
     def __init__(self):
         super().__init__()
         self.data_extract()
-        x_train ,x_valid,y_train,y_temp = self.spiliting_data_sets()
-        
-        print(x_train.shape)
+        x_train ,x_valid,y_train,y_temp = self.spiliting_data_sets() 
+        print(f"X shape :- {x_train.shape}")
+       
 t1 = Neural_activation_process()
- 
-
-        
+     
 
     
