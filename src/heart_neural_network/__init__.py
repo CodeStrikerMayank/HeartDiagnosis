@@ -62,8 +62,32 @@ class Neural_activation_process(extraction_process_by_CS):
         super().__init__()
         self.data_extract()
         x_train ,x_valid,y_train,y_temp = self.spiliting_data_sets() 
-        
-       
+        w1 = np.random.randn(30,32)*np.sqrt(32/2)
+        b1 = np.zeros((1,32))
+        w2 = np.random.randn(32,16)*np.sqrt(16/2)
+        b2 = np.zeros((1,24))
+        w3 = np.random.randn(16,8)*np.sqrt(8/2)
+        b3 = np.zeros((1,18))
+        w4 = np.random.randn(8,4)*np.sqrt(4/2)
+        b4 = np.zeros((1,4))
+        w5 = np.random.randn(4,2)*np.sqrt(2/2)
+        b5 = np.zeros((1,2))
+        w6 = np.random.randn(2,1)*np.sqrt(1/2)
+        b6 = np.zeros((1,1))
+        lrt = 0.01
+        ephocs = 10000 
+        m = len(x_train)
+        for ephoc in range(ephocs):
+           indices = np.random.permutation(m)
+           batch = 10
+           x_shuffle ,y_shuffle = x_train[indices],y_train[indices]
+           for i in range(0,m,batch):
+            xb = x_shuffle[i:i+batch]
+            yb = y_shuffle[i:i+btach]
+            mb = 
+
+
+
 t1 = Neural_activation_process()
      
 
