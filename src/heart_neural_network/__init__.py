@@ -38,7 +38,7 @@ class extraction_process_by_CS:
         try:
             x_train ,x_temp,y_train,y_temp = train_test_split(self.x,self.y,test_size=.30,random_state=42,shuffle=True)
             x_test,x_valid,y_test,y_valid = train_test_split(x_temp,y_temp,test_size=.50,random_state=42,shuffle=True)
-            return x_train , y_train,x_test,y_test 
+            return x_train , y_train,x_test,y_test,x_valid,y_valid
         except ValueError as err:
             print("Failed extraction and data ",err)
             sys.exit()
@@ -62,7 +62,7 @@ class Neural_activation_process(extraction_process_by_CS):
     def __init__(self):
         super().__init__()
         self.data_extract()
-        x_train ,x_valid,y_train,y_temp = self.spiliting_data_sets() 
+        x_train , y_train,x_test,y_test,x_valid,y_valid = self.spiliting_data_sets() 
 
         w1 = np.random.randn(30,32)*np.sqrt(32/2)
         b1 = np.zeros((1,32))
@@ -148,11 +148,11 @@ class Neural_activation_process(extraction_process_by_CS):
             b5 -= lrt * db5 
             b6 -= lrt * db6 
         if ephoc%100==0:
-            
+           """caluclate loss with validation set"""
+            zv = np.dot(x_valid,w1)+b1 
+            av = relu(zu)
+
            
 
 
 t1 = Neural_activation_process()
-     
-
-    k
