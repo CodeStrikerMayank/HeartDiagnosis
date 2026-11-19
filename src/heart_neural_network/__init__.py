@@ -63,6 +63,7 @@ class Neural_activation_process(extraction_process_by_CS):
         super().__init__()
         self.data_extract()
         x_train ,x_valid,y_train,y_temp = self.spiliting_data_sets() 
+
         w1 = np.random.randn(30,32)*np.sqrt(32/2)
         b1 = np.zeros((1,32))
         w2 = np.random.randn(32,16)*np.sqrt(16/2)
@@ -77,6 +78,7 @@ class Neural_activation_process(extraction_process_by_CS):
         b6 = np.zeros((1,1))
         lrt = 0.01
         ephocs = 10000 
+
         m = len(x_train)
         for ephoc in range(ephocs):
            indices = np.random.permutation(m)
@@ -110,16 +112,47 @@ class Neural_activation_process(extraction_process_by_CS):
 
             """Backward propogation """   
             dz6 = (yb-y_shuffle)
-            dw6 = (1/mb)*np.dot(a5.T,dz6)
+            dw6 = (1/mb)*np.dot(a5.T,dz6)        
             db6 = (1/mb)*np.sum(dz6,axis=0,keepdims=True)
 
             dz5 = np.dot(dz6,w6.T)*self.relu_der(z5)
             dw5 = (1/mb)*np.dot(a4.T,dz5)
-            db5 = (1/mb)*np.dot(dz5,axis=0,keepdims=True)
-                     
+            db5 = (1/mb)*np.sum(dz5,axis=0,keepdims=True)
+
+            dz4 = np.dot(dz5, w5.T) * self.relu_der(z4)
+            dw4 = (1/mb)*np.dot(a3.T,dz4)
+            db4 = (1/mb)*np.sum(dz4,axis=0,keepdims=True)
+
+            dz3 = np.dot(dz4,w4.T)*self.relu_der(z3)
+            dw3 = (1/mb)*np.dot(a2.T,dz3)
+            db3 = (1/mb)*np.sum(dz3,axis=0,keepdims=True)
+
+            dz2 = np.dot(dz3,w3.T) * self.relu_der(z2)
+            dw2 = (1/mb)*np.dot(a1.T,dz2)
+            db2 = (1/mb)*np.sum(dz2,axis=0,keepdims=True)
+
+            dz1 = np.dot(dz2,w1.T) * self.relu_der(z1)
+            dw1 = (1/mb)*np.dot(xb.T,dz1)
+            db1 = (1/mb)*np.sum(dz1,axis=0,keepdims=True)
+
+            w1 -= lrt * dw1
+            w2 -= lrt * dw2
+            w3 -= lrt * dw3    
+            w4 -= lrt * dw4 
+            w5 -= lrt * dw5
+            w6 -= lrt * dw6 
+            b1 -= lrt * db1   
+            b2 -= lrt * db2 
+            b3 -= lrt * db3 
+            b4 -= lrt * db4  
+            b5 -= lrt * db5 
+            b6 -= lrt * db6 
+        if ephoc%100==0:
+            
+           
 
 
 t1 = Neural_activation_process()
      
 
-    
+    k
