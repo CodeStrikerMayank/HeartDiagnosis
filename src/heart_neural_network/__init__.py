@@ -150,7 +150,8 @@ class Neural_activation_process(extraction_process_by_CS):
         if ephoc%100==0:
            """caluclate loss with validation set"""
             zv = np.dot(x_valid,w1)+b1 
-            av = relu(zu)
+            av = relu(zv)
+            
 
            
 
