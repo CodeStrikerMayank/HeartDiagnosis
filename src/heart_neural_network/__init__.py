@@ -85,75 +85,80 @@ class Neural_activation_process(extraction_process_by_CS):
            batch = 10
            x_shuffle ,y_shuffle = x_train[indices],y_train[indices]
            for i in range(0,m,batch):
-            """Implementing the batch processing unit"""
-            xb = x_shuffle[i:i+batch]
-            yb = y_shuffle[i:i+batch]
-            mb = len(xb)
+                """Implementing the batch processing unit"""
+                xb = x_shuffle[i:i+batch]
+                yb = y_shuffle[i:i+batch]
+                mb = len(xb)
 
-            """ lets activate the Neuron 😎 """
+                """ lets activate the Neuron 😎 """
 
-            z1 = np.dot(xb,w1)+b1 
-            a1 = self.relu(z1)
+                z1 = np.dot(xb,w1)+b1 
+                a1 = self.relu(z1)
 
-            z2 = np.dot(a1,w2)+b2 
-            a2 = self.relu(z2)
+                z2 = np.dot(a1,w2)+b2 
+                a2 = self.relu(z2)
 
-            z3 = np.dot(a2,w3)+b3 
-            a3 = self.relu(z3)
+                z3 = np.dot(a2,w3)+b3 
+                a3 = self.relu(z3)
 
-            z4 = np.dot(a3,w4)+b4 
-            a4 = self.relu(z4)
+                z4 = np.dot(a3,w4)+b4 
+                a4 = self.relu(z4)
 
-            z5 = np.dot(a4,w5)+b5
-            a5 = self.relu(z5)  
+                z5 = np.dot(a4,w5)+b5
+                a5 = self.relu(z5)  
 
-            z6 = np.dot(a5,w6)+b6
-            a6 = self.sigmoid(z6) 
+                z6 = np.dot(a5,w6)+b6
+                a6 = self.sigmoid(z6) 
 
-            """Backward propogation """   
-            dz6 = (yb-y_shuffle)
-            dw6 = (1/mb)*np.dot(a5.T,dz6)        
-            db6 = (1/mb)*np.sum(dz6,axis=0,keepdims=True)
+                """Backward propogation """   
+                dz6 = (yb-y_shuffle)
+                dw6 = (1/mb)*np.dot(a5.T,dz6)        
+                db6 = (1/mb)*np.sum(dz6,axis=0,keepdims=True)
 
-            dz5 = np.dot(dz6,w6.T)*self.relu_der(z5)
-            dw5 = (1/mb)*np.dot(a4.T,dz5)
-            db5 = (1/mb)*np.sum(dz5,axis=0,keepdims=True)
+                dz5 = np.dot(dz6,w6.T)*self.relu_der(z5)
+                dw5 = (1/mb)*np.dot(a4.T,dz5)
+                db5 = (1/mb)*np.sum(dz5,axis=0,keepdims=True)
 
-            dz4 = np.dot(dz5, w5.T) * self.relu_der(z4)
-            dw4 = (1/mb)*np.dot(a3.T,dz4)
-            db4 = (1/mb)*np.sum(dz4,axis=0,keepdims=True)
+                dz4 = np.dot(dz5, w5.T) * self.relu_der(z4)
+                dw4 = (1/mb)*np.dot(a3.T,dz4)
+                db4 = (1/mb)*np.sum(dz4,axis=0,keepdims=True)
 
-            dz3 = np.dot(dz4,w4.T)*self.relu_der(z3)
-            dw3 = (1/mb)*np.dot(a2.T,dz3)
-            db3 = (1/mb)*np.sum(dz3,axis=0,keepdims=True)
+                dz3 = np.dot(dz4,w4.T)*self.relu_der(z3)
+                dw3 = (1/mb)*np.dot(a2.T,dz3)
+                db3 = (1/mb)*np.sum(dz3,axis=0,keepdims=True)
 
-            dz2 = np.dot(dz3,w3.T) * self.relu_der(z2)
-            dw2 = (1/mb)*np.dot(a1.T,dz2)
-            db2 = (1/mb)*np.sum(dz2,axis=0,keepdims=True)
+                dz2 = np.dot(dz3,w3.T) * self.relu_der(z2)
+                dw2 = (1/mb)*np.dot(a1.T,dz2)
+                db2 = (1/mb)*np.sum(dz2,axis=0,keepdims=True)
 
-            dz1 = np.dot(dz2,w1.T) * self.relu_der(z1)
-            dw1 = (1/mb)*np.dot(xb.T,dz1)
-            db1 = (1/mb)*np.sum(dz1,axis=0,keepdims=True)
+                dz1 = np.dot(dz2,w1.T) * self.relu_der(z1)
+                dw1 = (1/mb)*np.dot(xb.T,dz1)
+                db1 = (1/mb)*np.sum(dz1,axis=0,keepdims=True)
 
-            w1 -= lrt * dw1
-            w2 -= lrt * dw2
-            w3 -= lrt * dw3    
-            w4 -= lrt * dw4 
-            w5 -= lrt * dw5
-            w6 -= lrt * dw6 
-            b1 -= lrt * db1   
-            b2 -= lrt * db2 
-            b3 -= lrt * db3 
-            b4 -= lrt * db4  
-            b5 -= lrt * db5 
-            b6 -= lrt * db6 
-        if ephoc%100==0:
-           """caluclate loss with validation set"""
-            zv = np.dot(x_valid,w1)+b1 
-            av = relu(zv)
-            
-
-           
-
-
+                w1 -= lrt * dw1
+                w2 -= lrt * dw2
+                w3 -= lrt * dw3    
+                w4 -= lrt * dw4 
+                w5 -= lrt * dw5
+                w6 -= lrt * dw6 
+                b1 -= lrt * db1   
+                b2 -= lrt * db2 
+                b3 -= lrt * db3 
+                b4 -= lrt * db4  
+                b5 -= lrt * db5 
+                b6 -= lrt * db6 
+           if ephoc %100==0:
+               zv1 = np.dot(x_valid,w1)+b1
+               av1 = self.relu(zv1)
+               zv2 = np.dot(av1,w2) + b2        
+               av2 = self.relu(zv2)
+               zv3 = np.dot(av2,w3)+b3 
+               av3 = self.relu(z43) 
+               zv4 = np.dot(av3,w4)+b4 
+               av4 = self.relu(zv4) 
+               zv5 = np.dot(av4,w5)+b5  
+               av5 = self.relu(az5)
+               zv6 = np.dot(av5,w6)+b6 
+               pred = self.sigmoid(zv6)
+               
 t1 = Neural_activation_process()
