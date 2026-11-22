@@ -159,6 +159,10 @@ class Neural_activation_process(extraction_process_by_CS):
                zv5 = np.dot(av4,w5)+b5  
                av5 = self.relu(az5)
                zv6 = np.dot(av5,w6)+b6 
-               pred = self.sigmoid(zv6)
+               pred = self.sigmoid(zv6) 
+
+               loss = self.bce(pred,y_valid)
+               accuracy = np.mean((pred>0.5,dtype=float)=y))
                
+
 t1 = Neural_activation_process()
