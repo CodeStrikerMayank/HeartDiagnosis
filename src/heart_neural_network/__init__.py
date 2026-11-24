@@ -163,6 +163,8 @@ class Neural_activation_process(extraction_process_by_CS):
 
                loss = self.bce(pred,y_valid)
                accuracy = np.mean((pred>0.5,dtype=float)=y))
+               print("accuracy":-,accuracy)
+
                
 
 t1 = Neural_activation_process()
